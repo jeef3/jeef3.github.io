@@ -1,0 +1,160 @@
+---
+layout: post
+title: "Complex Fluent APIs"
+date: 2012-08-20 12:11
+comments: true
+categories: ASP.NET
+published: false
+---
+I recently had my first go at creating a [fluent API](http://en.wikipedia.org/wiki/Fluent_interface). On their own
+fluent APIs are quite simple to build. There's plenty of examples and tutorials out there. But the models I needed to build had a deep hirearchy. I wanted my fluent API to be smart enough to only allow the developer access to certain methods at each level of inheritance. In the end I had a mixture of fluent API and a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern).
+<!-- more -->
+## Some Background
+
+I've built a custom data-grid component. It is split into two parts; client side JavaScript &mdash; for all user interactions &mdash; and server side (ASP.NET) that helps the developer define the grid configuration. Currently all the definitions are done via properties, normally using the property initializer.
+
+``` c#
+var grid = new Grid
+{
+    Url = Url.Action("List", "Products"),
+    
+    Columns = new List<BaseColumnModel>
+    {
+		//                  Column Title, Row data property
+        new PlainTextColumnModel("Name", "Name"),
+        new PlainTextColumnModel("Description", "Description"),
+		new PlainTextColumnModel("Tax", "Tax")
+		{
+			Hidden = !Model.IsTaxEnabled,
+			Align = ColumnAlign.Right
+		}
+        new PlainTextColumnModel("Price", "SellPrice")
+        {
+			ToolTip = "Product Sell Price",
+            Align = ColumnAlign.Right,
+        }
+    }
+};
+```
+
+Defining the grid columns is where a good fluent API would make life easier for the developer. Even with inteli-sense, it's still difficult to discover what options are available to you. So this is where I am introducing the fluent API. And as a bonus, strongly typing this data-grid gives us the opportunity to use expressions instead of strings for defining our row data.
+
+``` c#
+// If you don't supply "Description", then "Product Description" is inferred from the expression
+new PlainTextColumnModel(x => x.ProductDescription, "Description")
+``` 
+
+## Designing the API
+First we need to think about how we want the API structured. So I start by sketching up some ideas on what the column definitions should look like. We have some complex requirements in here:
+
+``` c#
+columns.AddPlainTextColumnModel(x => x.Name);
+	
+columns.AddPlainTextColumnModel(x => x.Description);
+
+columns.AddPlainTextColumnModel(x => x.Tax)
+	.If(!Model.IsTaxEnabled)
+		.IsHidden()
+	.AlignRight();
+	
+columns.AddPlainTextColumnModel(x => x.SellPrice, "Price")
+	.WithToolTip("Product Sell Price")
+	// New functionality; on any row, if the sell is below the cost, colour it red.
+	.When(x => x.IsSellBelowCost)
+		.IsTrue().AddClass("sell-price-warning")
+	.AlignRight();
+```
+
+So this is how I would like the API to read. There's a little bit of nesting in there. We want to conditionally show or hide a column, and then on a per-row basis add a class if the sell price is below the cost price.
+
+## Models
+The first part of the problem is the models. Since I already have something in place, I don't actually need to modify these models much, just some changes for the expressions and strong typing. But we should note that there is an inheritence hirearchy to them:
+
+``` c#
+public class BaseColumnModel<TRowModel>
+{
+	public string Name { get; set; }
+	
+	public ColumnAlign Align { get; set; }
+	
+	// Bunch of other base properties
+	
+	public BaseColumnModel(string name)
+	{
+		Name = name;
+	}
+}
+
+public class SinglePropertyColumnModel<TRowModel>
+{
+	public Expression<Func<<TRowModel>, object>> Property { get; set; }
+	
+	public SinglePropertyColumnModel(Expression<Func<<TRowModel>, object>> property, string name) : base(name)
+	{
+		Property = property;
+	}
+}
+
+public class PlainTextColumnModel<TRowModel>
+{
+}
+```
+
+It goes a bit deeper than this, since we also have input cells etc (In total we have 16 column types). The main point is, in our fluent API, if the developer starts adding a ```PlainTextColumnModel```, then they also need to be able to reach all the methods that are available on the ```BaseColumnModel```. This gets messy when we start to introduce generics &mdash; required for out strongly typed expressions. You will see why soon.
+
+## Model Builders
+
+So, our grid property initializer can stay there for now. We will add ```ColumnModelsBuilder<TRowModel>``` where ```TRowModel``` is the strongly typed row model for the grid. And as part of the refactoring to strongly type the grid, the ```Columns``` property is now of type ```IList<BaseColumnModel<TRowModel>>```.
+
+``` c# ColumnModelsBuilder.cs
+public class ColumnModelsBuilder<TRowModel>
+{
+	internal IList<BaseColumnModel<TRowModel>> ColumnModels { get; private set; }
+
+	public ColumnModelsBuilder()
+	{
+		ColumnModels = new List<BaseColumnModel<TRowModel>>();
+	}
+
+	public IList<BaseColumnModel<TRowModel>> Build()
+	{
+		return ColumnModels;
+	}
+}
+```
+
+``` c#
+var grid = new Grid<Product>()
+{
+	// ...
+}
+
+var columns = new ColumnModelsBuilder<Product>();
+// Add columns
+grid.Columns = columns.Build();
+```
+
+From here, I add a separate extensions class for each type of column builder.
+
+``` c# PlainTextColumnModelExtensions.cs
+public static class PlainTextColumnModelExtensions
+{
+	public static PlainTextColumnModelBuilder<TRowModel> AddPlainTextColumn<TRowModel>(
+		this ColumnModelsBuilder<TRowModel> columnModelsBuilder,
+		Expression<Func<TRowModel, object>> property,
+		string header = null)
+	{
+		var model = new PlainTextColumnModel<TRowModel>()
+		{
+			Property = property,
+			Header = header			
+		};
+		
+		columnModelsBuilder.ColumnModels.Add(model);
+		
+		return new PlainTextColumnModelBuilder(model);
+	}
+}
+```
+
+It's these extension methods that give us the ```AddPlainTextColumn``` methods that set-up the builder, attach the model, and start the fluent chain.
