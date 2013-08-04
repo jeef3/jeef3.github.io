@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ASP.NET | Jeff K, Creative]]></title>
+  <link href="http://jeef3.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
+  <link href="http://jeef3.github.io/"/>
+  <updated>2013-08-05T08:59:42+12:00</updated>
+  <id>http://jeef3.github.io/</id>
+  <author>
+    <name><![CDATA[Jeff Knaggs]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript Behaviours Pattern]]></title>
+    <link href="http://jeef3.github.io/blog/2010/07/29/javascript-behaviours-pattern/"/>
+    <updated>2010-07-29T16:59:00+12:00</updated>
+    <id>http://jeef3.github.io/blog/2010/07/29/javascript-behaviours-pattern</id>
+    <content type="html"><![CDATA[<p>In an interactive MVC framework web-application that takes heavy advantage of Javascript, we need a way to maintain quite a lot of (Javascript) code.</p>
+
+<!-- more -->
+
+
+<p>In a simple case, we might want to use a Date-picker widget.</p>
+
+<p>``` js
+$(document).ready(function () {</p>
+
+<pre><code>$('input.date-picker').datepicker();
+</code></pre>
+
+<p>});
+```</p>
+
+<p>Done. Now every time the page loads, it will check to see if we have an input with class <code>date-picker</code> and turn that into our lovely date-picker widget. We can put this code into our main <code>$(document).ready(func)</code> and we don&rsquo;t have to worry about it.</p>
+
+<p>But what if on one page in-particular we want something to happen when a date is selected. A pretty animation or something. This would require a separate explicit instantiation, with a callback or event listener attached. That&rsquo;s fine, this is a once off, so at the bottom of our view template we will add some in-line Javascript to take care of that instance.</p>
+
+<p>``` js
+// Using callback
+$(&lsquo;#alerting-date-picker&rsquo;).datepicker({</p>
+
+<pre><code>onChange: function (e) {
+    alert("Date changed");
+}
+</code></pre>
+
+<p>});</p>
+
+<p>// Or using event binding
+$(&lsquo;#alerting-date-picker&rsquo;).datepicker().bind(&lsquo;change&rsquo;, function (e) {</p>
+
+<pre><code>alert("Date changed");
+</code></pre>
+
+<p>});
+```</p>
+
+<p>Great. Now our element with id &ldquo;alerting-date-picker&rdquo; will have the date picker applied, and a callback set-up for when the date is changed.</p>
+
+<p>There are several problems with this approach:</p>
+
+<ul>
+<li>What if a lot of our pages don&rsquo;t use the date-picker.</li>
+<li>If we are going to just attach events like this, we will have many anonymous functions, this will get very messy.</li>
+<li>There&rsquo;s no (server managed) locale support.</li>
+</ul>
+
+
+<p>To address these issues I&rsquo;ve adopted what I&rsquo;ve dubbed the Behaviours Pattern. The theory is to have a single behaviour script for each controller. Within that script the code is broken down into behaviours for each view separated using a very simple namespacing method. Each behaviour is a self-contained object that gets instantiated by the view, where it (the view) can pass in any required server-side variables/locale information.</p>
+
+<p>So to start, we create a new Javascript file matching the name of our controller: <code>home.js</code>. This is our behaviours file for all views that come from the HomeController. You can then use whatever pattern you like, but I like using the <a href="http://www.klauskomenda.com/code/javascript-programming-patterns/#revealing">Revealing Module Pattern</a>.</p>
+
+<p>``` js
+// The controller namespace
+var home = {};</p>
+
+<p>// The index view
+home.index = function (properties) {</p>
+
+<pre><code>// Default variables. I like to populate this with element selectors and variables. They can then be overwritten by the view later.
+</code></pre>
+
+<p>    var defaults = {</p>
+
+<pre><code>    datePickerSelector: '#alerting-date-picker',
+    dateChangedMessage: null
+</code></pre>
+
+<p>    };</p>
+
+<pre><code>// Private variables
+var properties
+</code></pre>
+
+<p>    // Constructor. This is where we instantiate our widgets and do all the initial page set-up for this view.
+    var construct = function (properties) {</p>
+
+<pre><code>    // Set-up the properties object
+</code></pre>
+
+<p>        properties = $.extend(true, defaults, properties);</p>
+
+<pre><code>    $(properties.datePickerSelector).datepicker({
+        callback: {
+            onChange: event_datePickerChanged // This is a cut down version of my events/action pattern that I might blog about next.
+        }
+    });
+</code></pre>
+
+<p>    };</p>
+
+<pre><code>// Private methods
+var event_datePickerChanged = function (e) {
+    alert(properties.dateChangedMessage);
+};
+
+// Public methods
+</code></pre>
+
+<p>    var self = {
+        init: construct
+    };</p>
+
+<p>    construct(properties);
+    return self;
+};
+```</p>
+
+<p>Then in our view we use a small amount of in-line Javascript we can inject server side variables. I like to use a render queue to send this line to outside the body tag.</p>
+
+<p>``` js
+$(document).ready(function () {</p>
+
+<pre><code>home.init({
+    dateChangedMessage: '&amp;lt;= "Server-side message, probably from Resource" &amp;gt;'
+});
+</code></pre>
+
+<p>```</p>
+
+<p>And that&rsquo;s the start of my behaviours pattern.</p>
+]]></content>
+  </entry>
+  
+</feed>
