@@ -7,13 +7,13 @@ categories:
 - ASP.NET
 - jQuery
 - JavaScript
-published: false
+published: true
 ---
 In an interactive MVC framework web-application that takes heavy advantage of Javascript, we need a way to maintain quite a lot of (Javascript) code.
-
+<!-- more -->
 In a simple case, we might want to use a Date-picker widget.
 
-``` JavaScript
+``` js
 $(document).ready(function () {
     $('input.date-picker').datepicker();
 });
@@ -23,7 +23,7 @@ Done. Now every time the page loads, it will check to see if we have an input wi
 
 But what if on one page in-particular we want something to happen when a date is selected. A pretty animation or something. This would require a separate explicit instantiation, with a callback or event listener attached. That's fine, this is a once off, so at the bottom of our view template we will add some in-line Javascript to take care of that instance.
 
-``` JavaScript
+``` js
 // Using callback
 $('#alerting-date-picker').datepicker({
     onChange: function (e) {
@@ -49,7 +49,7 @@ To address these issues I've adopted what I've dubbed the Behaviours Pattern. Th
 
 So to start, we create a new Javascript file matching the name of our controller: `home.js`. This is our behaviours file for all views that come from the HomeController. You can then use whatever pattern you like, but I like using the [Revealing Module Pattern](http://www.klauskomenda.com/code/javascript-programming-patterns/#revealing).
 
-``` JavaScript
+``` js
 // The controller namespace
 var home = {}; 
 
@@ -93,7 +93,7 @@ home.index = function (properties) {
 
 Then in our view we use a small amount of in-line Javascript we can inject server side variables. I like to use a render queue to send this line to outside the body tag.
 
-``` JavaScript
+``` js
 $(document).ready(function () {
     home.init({
         dateChangedMessage: '&lt;= "Server-side message, probably from Resource" &gt;'
