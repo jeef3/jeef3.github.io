@@ -1,24 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Jeff K, Creative]]></title>
-  <link href="http://jeef3.github.io/atom.xml" rel="self"/>
-  <link href="http://jeef3.github.io/"/>
-  <updated>2013-08-05T09:41:20+12:00</updated>
-  <id>http://jeef3.github.io/</id>
-  <author>
-    <name><![CDATA[Jeff Knaggs]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Complex Fluent APIs (Part 1) - Jeff K, Creative</title>
+  <meta name="author" content="Jeff Knaggs">
 
   
-  <entry>
-    <title type="html"><![CDATA[Complex Fluent APIs (Part 1)]]></title>
-    <link href="http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis/"/>
-    <updated>2012-08-20T12:11:00+12:00</updated>
-    <id>http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis</id>
-    <content type="html"><![CDATA[<p>I recently had my first go at creating a <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent API</a>. On their own, fluent APIs are quite simple to build. There&rsquo;s plenty of examples and tutorials out there. But the models I needed to build had a deep hirearchy. I wanted my fluent API to be smart enough to only allow the developer access to certain methods at each level of inheritance. In the end I had a mixture of fluent API and a <a href="http://en.wikipedia.org/wiki/Builder_pattern">builder pattern</a>.</p>
+  <meta name="description" content="I recently had my first go at creating a fluent API. On their own, fluent APIs are quite simple to build. There&rsquo;s plenty of examples and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Jeff K, Creative" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jeff K, Creative</a></h1>
+  
+    <h2>Insert creative tag-line here</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jeef3.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Complex Fluent APIs (Part 1)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-20T12:11:00+12:00" pubdate data-updated="true">Aug 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I recently had my first go at creating a <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent API</a>. On their own, fluent APIs are quite simple to build. There&rsquo;s plenty of examples and tutorials out there. But the models I needed to build had a deep hirearchy. I wanted my fluent API to be smart enough to only allow the developer access to certain methods at each level of inheritance. In the end I had a mixture of fluent API and a <a href="http://en.wikipedia.org/wiki/Builder_pattern">builder pattern</a>.</p>
 
 <!-- more -->
 
@@ -283,170 +356,143 @@
 
 
 <p>It&rsquo;s these extension methods that give us the <code>AddPlainTextColumn</code> methods that set-up the builder, attach the model, and start the fluent chain.</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[JavaScript Behaviours Pattern]]></title>
-    <link href="http://jeef3.github.io/blog/2010/07/29/javascript-behaviours-pattern/"/>
-    <updated>2010-07-29T16:59:00+12:00</updated>
-    <id>http://jeef3.github.io/blog/2010/07/29/javascript-behaviours-pattern</id>
-    <content type="html"><![CDATA[<p>In an interactive MVC framework web-application that takes heavy advantage of Javascript, we need a way to maintain quite a lot of (Javascript) code.</p>
 
-<!-- more -->
+<span class="byline author vcard">Posted by <span class="fn">Jeff Knaggs</span></span>
+
+      
 
 
-<p>In a simple case, we might want to use a Date-picker widget.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input.date-picker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Done. Now every time the page loads, it will check to see if we have an input with class <code>date-picker</code> and turn that into our lovely date-picker widget. We can put this code into our main <code>$(document).ready(func)</code> and we don&rsquo;t have to worry about it.</p>
-
-<p>But what if on one page in-particular we want something to happen when a date is selected. A pretty animation or something. This would require a separate explicit instantiation, with a callback or event listener attached. That&rsquo;s fine, this is a once off, so at the bottom of our view template we will add some in-line Javascript to take care of that instance.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// Using callback</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#alerting-date-picker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">onChange</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Date changed&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Or using event binding</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#alerting-date-picker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">().</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Date changed&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Great. Now our element with id &ldquo;alerting-date-picker&rdquo; will have the date picker applied, and a callback set-up for when the date is changed.</p>
-
-<p>There are several problems with this approach:</p>
-
-<ul>
-<li>What if a lot of our pages don&rsquo;t use the date-picker.</li>
-<li>If we are going to just attach events like this, we will have many anonymous functions, this will get very messy.</li>
-<li>There&rsquo;s no (server managed) locale support.</li>
-</ul>
 
 
-<p>To address these issues I&rsquo;ve adopted what I&rsquo;ve dubbed the Behaviours Pattern. The theory is to have a single behaviour script for each controller. Within that script the code is broken down into behaviours for each view separated using a very simple namespacing method. Each behaviour is a self-contained object that gets instantiated by the view, where it (the view) can pass in any required server-side variables/locale information.</p>
-
-<p>So to start, we create a new Javascript file matching the name of our controller: <code>home.js</code>. This is our behaviours file for all views that come from the HomeController. You can then use whatever pattern you like, but I like using the <a href="http://www.klauskomenda.com/code/javascript-programming-patterns/#revealing">Revealing Module Pattern</a>.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// The controller namespace</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">home</span> <span class="o">=</span> <span class="p">{};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// The index view</span>
-</span><span class='line'><span class="nx">home</span><span class="p">.</span><span class="nx">index</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">properties</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Default variables. I like to populate this with element selectors and variables. They can then be overwritten by the view later.</span>
-</span><span class='line'> <span class="err">   </span><span class="kd">var</span> <span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">datePickerSelector</span><span class="o">:</span> <span class="s1">&#39;#alerting-date-picker&#39;</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">dateChangedMessage</span><span class="o">:</span> <span class="kc">null</span>
-</span><span class='line'> <span class="err">   </span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Private variables</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">properties</span>
-</span><span class='line'>
-</span><span class='line'> <span class="err">   </span><span class="c1">// Constructor. This is where we instantiate our widgets and do all the initial page set-up for this view.</span>
-</span><span class='line'> <span class="err">   </span><span class="kd">var</span> <span class="nx">construct</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">properties</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Set-up the properties object</span>
-</span><span class='line'> <span class="err">       </span><span class="nx">properties</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">properties</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nx">properties</span><span class="p">.</span><span class="nx">datePickerSelector</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
-</span><span class='line'>            <span class="nx">callback</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">onChange</span><span class="o">:</span> <span class="nx">event_datePickerChanged</span> <span class="c1">// This is a cut down version of my events/action pattern that I might blog about next.</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'> <span class="err">   </span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Private methods</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">event_datePickerChanged</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="nx">properties</span><span class="p">.</span><span class="nx">dateChangedMessage</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Public methods</span>
-</span><span class='line'> <span class="err">   </span><span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'> <span class="err">       </span><span class="nx">init</span><span class="o">:</span> <span class="nx">construct</span>
-</span><span class='line'> <span class="err">   </span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'> <span class="err">   </span><span class="nx">construct</span><span class="p">(</span><span class="nx">properties</span><span class="p">);</span>
-</span><span class='line'> <span class="err">   </span><span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Then in our view we use a small amount of in-line Javascript we can inject server side variables. I like to use a render queue to send this line to outside the body tag.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">home</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">dateChangedMessage</span><span class="o">:</span> <span class="s1">&#39;&amp;lt;= &quot;Server-side message, probably from Resource&quot; &amp;gt;&#39;</span>
-</span><span class='line'>    <span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And that&rsquo;s the start of my behaviours pattern.</p>
-]]></content>
-  </entry>
   
-</feed>
+
+
+<time datetime="2012-08-20T12:11:00+12:00" pubdate data-updated="true">Aug 20<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/asp-dot-net/'>ASP.NET</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis/" data-via="jeef3" data-counturl="http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/07/29/javascript-behaviours-pattern/" title="Previous Post: JavaScript Behaviours Pattern">&laquo; JavaScript Behaviours Pattern</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/08/20/complex-fluent-apis/">Complex Fluent APIs (Part 1)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/07/29/javascript-behaviours-pattern/">JavaScript Behaviours Pattern</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/jeef3">@jeef3</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jeef3',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jeff Knaggs -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

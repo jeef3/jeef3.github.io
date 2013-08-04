@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ASP.NET | Jeff K, Creative]]></title>
   <link href="http://jeef3.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
   <link href="http://jeef3.github.io/"/>
-  <updated>2013-08-05T08:59:42+12:00</updated>
+  <updated>2013-08-05T09:41:20+12:00</updated>
   <id>http://jeef3.github.io/</id>
   <author>
     <name><![CDATA[Jeff Knaggs]]></name>
@@ -12,6 +12,194 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Complex Fluent APIs (Part 1)]]></title>
+    <link href="http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis/"/>
+    <updated>2012-08-20T12:11:00+12:00</updated>
+    <id>http://jeef3.github.io/blog/2012/08/20/complex-fluent-apis</id>
+    <content type="html"><![CDATA[<p>I recently had my first go at creating a <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent API</a>. On their own, fluent APIs are quite simple to build. There&rsquo;s plenty of examples and tutorials out there. But the models I needed to build had a deep hirearchy. I wanted my fluent API to be smart enough to only allow the developer access to certain methods at each level of inheritance. In the end I had a mixture of fluent API and a <a href="http://en.wikipedia.org/wiki/Builder_pattern">builder pattern</a>.</p>
+
+<!-- more -->
+
+
+<h2>Some Background</h2>
+
+<p>I&rsquo;ve built a custom data-grid component. It is split into two parts; client side JavaScript &mdash; for all user interactions &mdash; and server side (ASP.NET) that helps the developer define the grid configuration and then renders the grid HTML. Currently all the definitions are done via properties, normally using the property initializer.</p>
+
+<p>``` c#
+var grid = new Grid
+{</p>
+
+<pre><code>// Where the grid will request data from, via AJAX
+Url = Url.Action("List", "Products"),
+
+Columns = new List&lt;BaseColumnModel&gt;
+{
+    // Column Title, Row data property
+    new PlainTextColumnModel("Name", "Name"),
+    new PlainTextColumnModel("Description", "Description"),
+    new PlainTextColumnModel("Tax", "Tax")
+    {
+        Hidden = !Model.IsTaxEnabled,
+        Align = ColumnAlign.Right
+    }
+    new PlainTextColumnModel("Price", "SellPrice")
+    {
+        ToolTip = "Product Sell Price",
+        Align = ColumnAlign.Right,
+    }
+}
+</code></pre>
+
+<p>};
+```</p>
+
+<p>Defining the grid columns is where a good fluent API would make life easier for the developer. Currently, even with inteli-sense, it&rsquo;s difficult to discover what options are available to you. So this is where I am introducing the fluent API. And as a bonus, strongly typing this data-grid gives us the opportunity to use expressions instead of strings for defining our row data.</p>
+
+<p><code>c#
+// If you don't supply the second argument - "Description" - for the column header, then "Product Description" is inferred from the expression
+new PlainTextColumnModel(x =&gt; x.ProductDescription, "Description")
+</code></p>
+
+<h2>Designing the API</h2>
+
+<p>First we need to think about how we want the API structured. So I start by sketching up some ideas on what the column definitions could look like. We have some complex requirements in here:</p>
+
+<p>``` c#
+columns.AddPlainTextColumnModel(x => x.Name);
+columns.AddPlainTextColumnModel(x => x.Description);
+columns.AddPlainTextColumnModel(x => x.Tax)</p>
+
+<pre><code>.If(!Model.IsTaxEnabled)
+    .IsHidden()
+.AlignRight();
+</code></pre>
+
+<p>columns.AddPlainTextColumnModel(x => x.SellPrice, &ldquo;Price&rdquo;)</p>
+
+<pre><code>.WithToolTip("Product Sell Price")
+// New functionality; on any row, if the sell price is below the cost, add a class so we can color it red.
+.When(x =&gt; x.IsSellBelowCost)
+    .IsTrue().AddClass("sell-price-warning")
+.AlignRight();
+</code></pre>
+
+<p>```</p>
+
+<p>This is how I would like the API to read. There&rsquo;s a little bit of nesting in there. We want to conditionally show or hide a column, and then on a per-row basis add a class if the sell price is below the cost price.</p>
+
+<h2>Models</h2>
+
+<p>The first part of the problem is the models. These are what our fluent API will eventually spit out for our grid to use. Since I already have something in place, I don&rsquo;t actually need to modify these models much, just some changes for the expressions and strong typing. We should note that there is an inheritence hirearchy to them.</p>
+
+<p>``` c#
+public class BaseColumnModel<TRowModel>
+{</p>
+
+<pre><code>public string Name { get; set; }
+
+public ColumnAlign Align { get; set; }
+
+// Bunch of other base properties
+
+public BaseColumnModel(string name)
+{
+    Name = name;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>public class SinglePropertyColumnModel<TRowModel>
+{</p>
+
+<pre><code>public Expression&lt;Func&lt;&lt;TRowModel&gt;, object&gt;&gt; Property { get; set; }
+
+public SinglePropertyColumnModel(Expression&lt;Func&lt;&lt;TRowModel&gt;, object&gt;&gt; property, string name) : base(name)
+{
+    Property = property;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>public class PlainTextColumnModel<TRowModel>
+{
+}
+```</p>
+
+<p>It goes a bit deeper than this since we also have input cells etc (In total we have 16 column types). The main point is, in our fluent API, if the developer starts adding a <code>PlainTextColumnModel</code>, then they also need to be able to reach all the methods that are available on the <code>BaseColumnModel</code>. This gets messy when we start to introduce generics &mdash; required for out strongly typed expressions. You will see why soon.</p>
+
+<h2>Model Builders</h2>
+
+<p>The model builders will do the actual work, providing each level of the fluent API and keep track of what properties are being added. Eventually we will call <code>Build()</code> on them to get the populated models.</p>
+
+<p>Our main grid property initializer can stay where it is for now as we are only making a fluent API for the column definitions. We will add <code>ColumnModelsBuilder&lt;TRowModel&gt;</code> where <code>TRowModel</code> is the strongly typed row model for the grid. And as part of the refactoring to strongly type the grid, the <code>Columns</code> property is now of type <code>IList&lt;BaseColumnModel&lt;TRowModel&gt;&gt;</code>.</p>
+
+<p>``` c# ColumnModelsBuilder.cs
+public class ColumnModelsBuilder<TRowModel>
+{</p>
+
+<pre><code>internal IList&lt;BaseColumnModel&lt;TRowModel&gt;&gt; ColumnModels { get; private set; }
+
+public ColumnModelsBuilder()
+{
+    ColumnModels = new List&lt;BaseColumnModel&lt;TRowModel&gt;&gt;();
+}
+
+public IList&lt;BaseColumnModel&lt;TRowModel&gt;&gt; Build()
+{
+    return ColumnModels;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` c#
+var grid = new Grid<Product>()
+{</p>
+
+<pre><code>// ...
+</code></pre>
+
+<p>}</p>
+
+<p>var columns = new ColumnModelsBuilder<Product>();
+// &hellip; add some columns
+grid.Columns = columns.Build();
+```</p>
+
+<p>From here, I add a separate extensions class for each type of column builder. You can see the generics mess starting to pile up.</p>
+
+<p>``` c# PlainTextColumnModelExtensions.cs
+public static class PlainTextColumnModelExtensions
+{</p>
+
+<pre><code>public static PlainTextColumnModelBuilder&lt;TRowModel&gt; AddPlainTextColumn&lt;TRowModel&gt;(
+    this ColumnModelsBuilder&lt;TRowModel&gt; columnModelsBuilder,
+    Expression&lt;Func&lt;TRowModel, object&gt;&gt; property,
+    string header = null)
+{
+    var model = new PlainTextColumnModel&lt;TRowModel&gt;()
+    {
+        Property = property,
+        Header = header         
+    };
+
+    columnModelsBuilder.ColumnModels.Add(model);
+
+    return new PlainTextColumnModelBuilder(model);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>It&rsquo;s these extension methods that give us the <code>AddPlainTextColumn</code> methods that set-up the builder, attach the model, and start the fluent chain.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript Behaviours Pattern]]></title>
