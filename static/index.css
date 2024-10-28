@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 48px;
+  font-family: "Love Ya Like A Sister", cursive;
+}
+
+.header {
+  position: relative;
+
+  margin-bottom: 12px;
+
+  color: white;
+  background: #2B0C44;
+}
+
+.header:after {
+  content: "";
+
+  position: absolute;
+  height: 12px;
+  width: 100%;
+  top: 100%;
+
+  background: url("./curly.svg");
+  background-position: center;
+}
