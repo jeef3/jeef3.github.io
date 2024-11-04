@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server ./static --files ./static/**/*.*"
+    "start": "browser-sync start --server . --files index.html --files assets"
   },
   "keywords": [],
   "author": "",
