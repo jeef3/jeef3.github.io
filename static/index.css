@@ -1,33 +1,158 @@
+:root {
+  --main-color: hsl(273 70% 16%);
+
+  --wave-height: 12px;
+}
+
+html {
+  font-size: 100%;
+}
+
 body {
   margin: 0;
 
+  font-size: 1.125em;
   font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
 .title {
   margin: 0;
 
-  font-size: 48px;
+  font-size: 3em;
   font-family: "Love Ya Like A Sister", cursive;
 }
 
 .header {
+  min-height: 80vh;
+  padding-bottom: 1em;
   position: relative;
 
-  margin-bottom: 12px;
+  margin-bottom: var(--wave-height);
 
-  color: white;
-  background: #2B0C44;
+  color: hsl(0 0% 100%);
+  background: var(--main-color);
+
+  display: grid;
+}
+
+.header .container {
+  text-align: center;
+
+  display: grid;
+  gap: 1em;
+  grid-template-areas: "me" "bio";
+  align-items: center;
+  align-content: center;
+  justify-items: center;
 }
 
 .header:after {
   content: "";
 
   position: absolute;
-  height: 12px;
+  height: var(--wave-height);
   width: 100%;
   top: 100%;
 
   background: url("./curly.svg");
   background-position: center;
+}
+
+.me {
+  grid-area: me;
+
+  width: 192px;
+  height: 216px;
+
+  background: url("./jeff.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bio {
+  grid-area: bio;
+}
+
+.bio .by-line {
+  color: color-mix(in hsl, var(--main-color), white 60%);
+}
+
+.container {
+  padding: 1em;
+  margin: 0 auto;
+}
+
+section h3 {
+  margin: 0;
+
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
+section h4 {
+  margin: 0;
+
+  color: hsl(0 0% 60%);
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.socials {
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.social a {
+  display: block;
+  width: 2em;
+  height: 2em;
+
+  background-size: 2em 2em;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (min-width: 680px) {
+  body {
+    font-size: 1.125em;
+  }
+
+  .me {
+    width: 316px;
+    height: 100%;
+  }
+
+  .container {
+    max-width: 800px;
+  }
+
+  .header .container {
+    text-align: start;
+
+    grid-template-areas: "bio me";
+  }
+
+  .socials {
+    justify-content: start;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 1.5em;
+  }
+
+  .me {
+    width: 360px;
+    height: 100%;
+  }
+  .container {
+    max-width: 1024px;
+  }
 }

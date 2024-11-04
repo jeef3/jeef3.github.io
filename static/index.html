@@ -1,34 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Portfolio of Jeff Knaggs</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&family=M+PLUS+Rounded+1c&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
     <section class="header">
-      <h2 class="title">Hi, I'm Jeff.</h2>
-      <h3 class="">Designer and Developer</h3>
+      <div class="container">
+        <div class="bio">
+          <h2 class="title">Hi, I'm Jeff.</h2>
+          <h3 class="by-line">Designer and Developer</h3>
 
-      <p>
-        I have always had a passion for software development. It is important
-        to me that software is not only useful, but accessible and enjoyable to
-        use. I have a background of 20 years in software development, and have
-        always enjoyed the challenges of UI design and development.
-      </p>
+          <p>
+            I have always had a passion for software development. It is
+            important to me that software useful, accessible and enjoyable to
+            use. I have a background of over 20 years designing and developing
+            software, and look forward to helping you with yours.
+          </p>
 
-      <div>Socials</div>
+          <ul class="socials">
+            <li class="social">
+              <a
+                style="background-image: url(./github.svg)"
+                href="https://github.com/jeef3?tab=repositories"
+                target="_blank"
+                aria-label="GitHub Profile"
+                title="Github Profile"
+              ></a>
+            </li>
+            <li class="social">
+              <a
+                style="background-image: url(./linkedin.svg)"
+                href="https://www.linkedin.com/in/jeff-knaggs/"
+                target="_blank"
+                aria-label="Linkedin Profile"
+                title="Linkedin Profile"
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="me"></div>
+      </div>
     </section>
 
     <section>
-      <h3>Senior Developer</h3>
-    </section>
+      <div class="container">
+        <h3 class="role">Senior Developer</h3>
+        <h4 class="company">Clever First Aid</h4>
+        <p class="employment-time">Aug 2020 – Nov 2024, 4yrs 3mos</p>
 
+        <p class="responsibilities">
+          <strong>Key responsibilities:</strong> UI/UX design and research,
+          frontend technical lead and development, mentoring.
+        </p>
+
+        <p>
+          As a Senior Developer at Clever First Aid, I had the privilege of
+          working with some extremely talented people across a wide array of
+          technologies. Our suite of hardware and software products exposed me
+          to numerous exciting challenges.
+        </p>
+        <p>
+          The hardware team helped me expand my knowledge into entry-level
+          hardware PCB design and embedded programming in C++. I really enjoyed
+          the expansion into hardware as another point of user interaction. With
+          this knowledge I converted our Foosball table into a smart Foosball
+          table with goal and goal velocity detection, bump detection and a
+          live-updating scoreboard and leaderboard.
+        </p>
+        <p>
+          I was tasked with designing and building our customer web portal from
+          scratch. This included working with our designer and our Product Owner
+          to build out designs and a roadmap. I was the technical lead on the
+          front end architecture and leaded development for the project. We used
+          React with TypeScript which would eventually lead architecture
+          decisions for additional products.
+        </p>
+        <p>
+          Later, my role expanded to include mentoring for our graduate and
+          junior developers. I’ve really enjoyed helping them learn and grow
+          with frequent one-on-ones, workshops and local or remote pair
+          programming sessions. I’ve encouraged them to give talks to the rest
+          of the team on challenges they’ve faced and things they’ve learned.
+        </p>
+      </div>
+    </section>
   </body>
 </html>
