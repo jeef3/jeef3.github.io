@@ -172,6 +172,8 @@ figure img {
 }
 
 figure figcaption {
+  margin-bottom: 1em;
+
   text-align: center;
   font-size: 0.625em;
   color: hsl(0 0% 80%);
@@ -214,4 +216,97 @@ figure figcaption {
   .container {
     max-width: 1024px;
   }
+}
+
+.carousel-scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+
+  display: grid;
+  gap: 16px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  grid-auto-columns: minmax(100%, 1fr);
+}
+
+[data-carousel-next] {
+  position: absolute;
+  top: 0;
+  right: -1em;
+  width: 1em;
+  height: 100%;
+  padding: 0;
+
+  cursor: pointer;
+  font-size: inherit;
+
+  border: 0;
+  background: transparent;
+
+  transition: background 200ms ease-in-out;
+}
+
+[data-carousel-next]:hover {
+  background: hsl(0 0% 50% / 50%);
+}
+
+[data-carousel-next]:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: url("./arrow.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.carousel .carousel-card {
+  scroll-snap-align: start;
+}
+
+.carousel-index {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+
+  display: grid;
+  gap: calc(1em - 8px);
+  grid-auto-flow: column;
+}
+
+.carousel-index-card {
+  border: solid 4px transparent;
+  border-radius: 2px;
+
+  transition: 200ms opacity ease-in-out;
+}
+
+.carousel-index:has(:hover) .carousel-index-card:not(:hover) {
+  opacity: 0.5;
+}
+
+.carousel-index-card button {
+  display: block;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+
+  border: 0;
+}
+
+.carousel-index-card img {
+  display: block;
+}
+
+.carousel-index-card.active {
+  border-color: var(--main-color);
 }

@@ -115,71 +115,109 @@
 
     <section>
       <div class="container">
-        <article class="position">
+        <div class="position">
           <header>
             <h2 class="position-name">Smart Foosball Table</h2>
           </header>
 
-          <div>
-            <figure>
-              <img
-                src="./assets/foosball-player-select.png"
-                alt="Player selection screen with players Jeff and Daniel selected"
-              />
-              <figcaption>
-                Player selection with stats match-up.
-                <cite
-                  >'Daniel' avatar from
-                  <a href="https://www.freepik.com">FreePik</a></cite
-                >
-              </figcaption>
-            </figure>
-            <figure>
-              <img
-                src="./assets/foosball-game.png"
-                alt="Game screen showing a score of 3–3 and 3mins 43sec remaining."
-              />
-              <figcaption>
-                Game screen with score and timer.
-                <cite
-                  >'Daniel' avatar from
-                  <a href="https://www.freepik.com">FreePik</a></cite
-                >
-              </figcaption>
-            </figure>
-            <figure>
-              <img
-                src="./assets/foosball-goal.png"
-                alt="Stylish celebration screen reading 'Goal!'"
-              />
-              <figcaption>Goal celebration</figcaption>
-            </figure>
-            <figure>
-              <img
-                src="./assets/foosball-brain.png"
-                alt="Circuit board containing many components"
-              />
-              <figcaption>
-                Rendered circuit board generated using
-                <a href="https://www.kicad.org">KiCad EDA</a>.
-              </figcaption>
-            </figure>
+          <div data-carousel class="carousel">
+            <div class="carousel-scroller">
+              <figure class="carousel-card">
+                <img
+                  src="./assets/foosball-player-select.png"
+                  alt="Player selection screen with players Jeff and Daniel selected"
+                />
+                <figcaption>
+                  Player selection with stats match-up.
+                  <cite
+                    >'Daniel' avatar from
+                    <a href="https://www.freepik.com">FreePik</a></cite
+                  >
+                </figcaption>
+              </figure>
+              <figure class="carousel-card">
+                <img
+                  src="./assets/foosball-game.png"
+                  alt="Game screen showing a score of 3–3 and 3mins 43sec remaining."
+                />
+                <figcaption>
+                  Game screen with score and timer.
+                  <cite
+                    >'Daniel' avatar from
+                    <a href="https://www.freepik.com">FreePik</a></cite
+                  >
+                </figcaption>
+              </figure>
+              <figure class="carousel-card">
+                <img
+                  src="./assets/foosball-goal.png"
+                  alt="Stylish celebration screen reading 'Goal!'"
+                />
+                <figcaption>Goal celebration</figcaption>
+              </figure>
+              <figure class="carousel-card">
+                <img
+                  src="./assets/foosball-brain.png"
+                  alt="Circuit board containing many components"
+                />
+                <figcaption>
+                  Rendered circuit board generated using
+                  <a href="https://www.kicad.org">KiCad EDA</a>.
+                </figcaption>
+              </figure>
+            </div>
 
-            <p>
-              As a side-project while working at Clever First Aid, the hardware
-              team helped me expand my knowledge into entry-level hardware PCB
-              design and embedded programming in C++. I really enjoyed the
-              expansion into hardware as another point of user interaction. With
-              this knowledge I converted our Foosball table into a smart
-              Foosball table with goal and goal velocity detection, bump
-              detection and a live-updating scoreboard and leader board
-              touch-screen interface.
-            </p>
-
-            <p><small>Source code available on request.</small></p>
+            <ul class="carousel-index">
+              <li class="carousel-index-card active">
+                <button>
+                  <img
+                    src="./assets/foosball-player-select.png"
+                    alt="Circuit board containing many components"
+                  />
+                </button>
+              </li>
+              <li class="carousel-index-card">
+                <button>
+                  <img
+                    src="./assets/foosball-game.png"
+                    alt="Circuit board containing many components"
+                  />
+                </button>
+              </li>
+              <li class="carousel-index-card">
+                <button>
+                  <img
+                    src="./assets/foosball-goal.png"
+                    alt="Circuit board containing many components"
+                  />
+                </button>
+              </li>
+              <li class="carousel-index-card">
+                <button>
+                  <img
+                    src="./assets/foosball-brain.png"
+                    alt="Circuit board containing many components"
+                  />
+                </button>
+              </li>
+            </ul>
           </div>
-        </article>
+
+          <p>
+            As a side-project while working at Clever First Aid, the hardware
+            team helped me expand my knowledge into entry-level hardware PCB
+            design and embedded programming in C++. I really enjoyed the
+            expansion into hardware as another point of user interaction. With
+            this knowledge I converted our Foosball table into a smart Foosball
+            table with goal and goal velocity detection, bump detection and a
+            live-updating scoreboard and leader board touch-screen interface.
+          </p>
+
+          <p><small>Source code available on request.</small></p>
+        </div>
       </div>
     </section>
+
+    <script type="application/javascript" src="./assets/index.js"></script>
   </body>
 </html>
