@@ -219,6 +219,7 @@ figure figcaption {
 }
 
 .carousel-scroller {
+  position: relative;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
