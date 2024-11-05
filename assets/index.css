@@ -16,6 +16,10 @@ body {
   font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
+a {
+  color: var(--main-color);
+}
+
 .title {
   margin: 0;
 
@@ -127,6 +131,50 @@ section h4 {
 
   background-size: 2em 2em;
   background-repeat: no-repeat;
+}
+
+.position header {
+  margin-bottom: 1em;
+}
+
+.position-name {
+  margin: 0;
+
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.position-company {
+  margin: 0;
+
+  color: hsl(0 0% 60%);
+  font-size: 1.125em;
+  font-weight: 600;
+}
+
+.position-duration {
+  margin: 0;
+
+  color: hsl(0 0% 80%);
+  font-size: 0.625em;
+}
+
+.position img {
+  width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figure img {
+  display: block;
+}
+
+figure figcaption {
+  text-align: center;
+  font-size: 0.625em;
+  color: hsl(0 0% 80%);
 }
 
 @media only screen and (min-width: 680px) {

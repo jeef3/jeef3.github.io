@@ -21,7 +21,7 @@
   <body>
     <section class="header">
       <div class="container">
-        <div class="bio">
+        <article class="bio">
           <h2 class="title">Hi, I'm Jeff</h2>
           <h3 class="by-line">Designer and Developer</h3>
 
@@ -52,8 +52,121 @@
               ></a>
             </li>
           </ul>
-        </div>
-        <div class="me"></div>
+        </article>
+
+        <div
+          class="me"
+          aria-title="Crude illustration of Jeff Knaggs"
+          aria-role="presentation"
+        ></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <article class="position">
+          <header>
+            <h2 class="position-name">
+              Senior Developer &amp; Principal UX Designer
+            </h2>
+            <h3 class="position-company">Clever First Aid</h3>
+            <p class="position-duration">Aug 2020–Nov 2024, 4yrs 3mos</p>
+          </header>
+
+          <p>
+            As a Senior Developer at Clever First Aid, I had the privilege of
+            working with some extremely talented people across a wide array of
+            technologies. Our suite of hardware and software products exposed me
+            to numerous exciting challenges.
+          </p>
+
+          <figure>
+            <img
+              src="./assets/monitor.png"
+              alt="Screenshots showing mobile and desktop views of the Clever First Aid application."
+            />
+            <figcaption>
+              Image used with permission from
+              <cite
+                ><a href="https://cleverfirstaid.com">Clever First Aid</a></cite
+              >
+            </figcaption>
+          </figure>
+
+          <p>
+            I was tasked with designing and building the Customer Web Portal
+            from scratch. This included working with our designer and our
+            Product Owner to build out designs and a roadmap. I was the
+            technical lead on the front end architecture and leaded development
+            for the project. We used React with TypeScript which would
+            eventually lead architecture decisions for additional products.
+          </p>
+
+          <p>
+            Later, my role expanded to include mentoring for our graduate and
+            junior developers. I really enjoyed helping them learn and grow with
+            frequent one-on-ones, workshops and local or remote pair programming
+            sessions. I encouraged them to give talks to the rest of the team on
+            challenges they faced and things they learned.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <article class="position">
+          <header>
+            <h2 class="position-name">Smart Foosball Table</h2>
+          </header>
+
+          <div>
+            <figure>
+              <img
+                src="./assets/foosball-player-select.png"
+                alt="Player selection screen with players Jeff and Daniel selected"
+              />
+              <figcaption>Player selection with stats match-up</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="./assets/foosball-game.png"
+                alt="Game screen showing a score of 3–3 and 3mins 43sec remaining."
+              />
+              <figcaption>Game screen with score and timer</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="./assets/foosball-goal.png"
+                alt="Stylish celebration screen reading 'Goal!'"
+              />
+              <figcaption>Goal celebration</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="./assets/foosball-brain.png"
+                alt="Circuit board containing many components"
+              />
+              <figcaption>
+                Rendered circuit board generated using
+                <a href="https://www.kicad.org">KiCad EDA</a>.
+              </figcaption>
+            </figure>
+
+            <p>
+              As a side-project while working at Clever First Aid, the hardware
+              team helped me expand my knowledge into entry-level hardware PCB
+              design and embedded programming in C++. I really enjoyed the
+              expansion into hardware as another point of user interaction. With
+              this knowledge I converted our Foosball table into a smart
+              Foosball table with goal and goal velocity detection, bump
+              detection and a live-updating scoreboard and leader board
+              touch-screen interface.
+            </p>
+
+            <p><small>Source code available on request.</small></p>
+          </div>
+        </article>
       </div>
     </section>
   </body>
