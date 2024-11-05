@@ -121,8 +121,8 @@
           </header>
 
           <div data-carousel class="carousel">
-            <div class="carousel-scroller">
-              <figure class="carousel-card">
+            <div data-carousel-scroller class="carousel-scroller">
+              <figure data-carousel-card="player-select" class="carousel-card">
                 <img
                   src="./assets/foosball-player-select.png"
                   alt="Player selection screen with players Jeff and Daniel selected"
@@ -135,7 +135,7 @@
                   >
                 </figcaption>
               </figure>
-              <figure class="carousel-card">
+              <figure data-carousel-card="game" class="carousel-card">
                 <img
                   src="./assets/foosball-game.png"
                   alt="Game screen showing a score of 3–3 and 3mins 43sec remaining."
@@ -148,14 +148,14 @@
                   >
                 </figcaption>
               </figure>
-              <figure class="carousel-card">
+              <figure data-carousel-card="goal" class="carousel-card">
                 <img
                   src="./assets/foosball-goal.png"
                   alt="Stylish celebration screen reading 'Goal!'"
                 />
                 <figcaption>Goal celebration</figcaption>
               </figure>
-              <figure class="carousel-card">
+              <figure data-carousel-card="brain" class="carousel-card">
                 <img
                   src="./assets/foosball-brain.png"
                   alt="Circuit board containing many components"
@@ -167,8 +167,11 @@
               </figure>
             </div>
 
-            <ul class="carousel-index">
-              <li class="carousel-index-card active">
+            <ul data-carousel-index class="carousel-index">
+              <li
+                data-carousel-index-card="player-select"
+                class="carousel-index-card active"
+              >
                 <button>
                   <img
                     src="./assets/foosball-player-select.png"
@@ -176,7 +179,7 @@
                   />
                 </button>
               </li>
-              <li class="carousel-index-card">
+              <li data-carousel-index-card="game" class="carousel-index-card">
                 <button>
                   <img
                     src="./assets/foosball-game.png"
@@ -184,7 +187,7 @@
                   />
                 </button>
               </li>
-              <li class="carousel-index-card">
+              <li data-carousel-index-card="goal" class="carousel-index-card">
                 <button>
                   <img
                     src="./assets/foosball-goal.png"
@@ -192,7 +195,7 @@
                   />
                 </button>
               </li>
-              <li class="carousel-index-card">
+              <li data-carousel-index-card="brain" class="carousel-index-card">
                 <button>
                   <img
                     src="./assets/foosball-brain.png"
