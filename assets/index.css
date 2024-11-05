@@ -2,6 +2,7 @@
   --main-color: hsl(273 70% 16%);
 
   --wave-height: 12px;
+  --wave-width: 800px;
 }
 
 html {
@@ -55,7 +56,17 @@ body {
   top: 100%;
 
   background: url("./curly.svg");
-  background-position: center;
+
+  animation: 10s linear infinite slide;
+}
+
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: var(--wave-width);
+  }
 }
 
 .me {
